@@ -5,6 +5,7 @@
 #include "ofxPostGlitch.h"
 #include "ofxRollingCam.h"
 #include "ofxOsc.h"
+#include "ofxSyphon.h"
 
 
 #define HOST "127.0.0.1"
@@ -15,6 +16,7 @@ class ofApp : public ofBaseApp{
 		ofSoundStream soundStream;
 		ofxVokaturi vokaturi;
 		ofxVokaturi::Emotions emotions;
+        ofxSyphonServer mSyphonServer;
 		bool valid;
 	public:
 		void setup();

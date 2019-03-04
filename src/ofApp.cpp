@@ -54,9 +54,8 @@ void ofApp::setup(){
         vbomesh.addVertex(ofVec3f(x,y,z));
     }
     
-    for(int i = 0 ; i<NUM ; i ++ ){
-        count[i] = 0;
-    }
+    //For Syphon
+    mSyphonServer.setName("Main");
 }
 
 //--------------------------------------------------------------
@@ -128,6 +127,8 @@ void ofApp::draw(){
     ofSetColor(255);
     ofFill();
     myFbo.draw(0, 0);
+    
+    mSyphonServer.publishScreen();
 }
 
 //--------------------------------------------------------------
@@ -162,12 +163,7 @@ void ofApp::drawNoiseLine(){
         if(4*NUM/5 <= i && i < NUM) {
             coef *= emotions.fear;
             vbomesh.addColor(ofFloatColor(0.7, 0.7, 1.0));
-            
-            _vec = vec[i]*coef;
-            
-            
-            ofDrawBitmapString(ofToString(_vec),_vec);
-            
+        
         }
         
         _vec = vec[i]*coef;
@@ -176,8 +172,6 @@ void ofApp::drawNoiseLine(){
     //ofDrawBitmapString(ofToString(_vec),_vec);
         
         vbomesh.addVertex(_vec);
-        
-        cout << coef<<endl;
 
     }
     //ofSetColor(150,150, 255);

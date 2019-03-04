@@ -1,4 +1,5 @@
 ofxOsc
 ofxPostGlitch
 ofxRollingCam
+ofxSyphon
 ofxVokaturi
