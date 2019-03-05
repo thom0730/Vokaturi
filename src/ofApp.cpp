@@ -10,13 +10,13 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofSetFrameRate(60);
+    ofSetFrameRate(24);
     ofSetVerticalSync(true);
     ofSetCircleResolution(64);
     
     
     rollCam.setup();//rollCam's setup.
-    rollCam.setCamSpeed(0.1);//rollCam's speed set;
+    rollCam.setCamSpeed(0.01);//rollCam's speed set;
     vbomesh.setUsage(GL_DYNAMIC_DRAW);
     vbomesh.setMode(OF_PRIMITIVE_LINE_LOOP);
     
@@ -25,16 +25,6 @@ void ofApp::setup(){
 	soundStream.printDeviceList();
 
 	auto devices = soundStream.getMatchingDevices("default");
-//    if(!devices.empty()){
-//        settings.setOutDevice(devices[0]);
-//    }
-//
-//    settings.setInListener(this);
-//    settings.sampleRate = SAMPLE_RATE;
-//    settings.numOutputChannels = 0;
-//    settings.numInputChannels = 1;
-//    settings.bufferSize = BUFFER_SIZE;
-//    soundStream.setup(settings);
 
 	ofBackground(0);
     
@@ -44,7 +34,7 @@ void ofApp::setup(){
     soundStream.setup(this, 0, 1, SAMPLE_RATE, BUFFER_SIZE, 4);
     
     //SETUP MESH
-    rollCam.setCamSpeed(0.1);//rollCam's speed set;
+    rollCam.setCamSpeed(0.06);//rollCam's speed set;
     for(int i=0;i<NUM;i++){
         int x = ofRandom(-ofGetHeight()/5,ofGetHeight()/5);
         int y = ofRandom(-ofGetHeight()/5,ofGetHeight()/5);
@@ -56,6 +46,18 @@ void ofApp::setup(){
     
     //For Syphon
     mSyphonServer.setName("Main");
+    
+    rollCam.setScale(0.8);
+    
+    //頂点の色を初期化
+    for(int i = 0;i < NUM;i++){
+        myVerts[i].set(0,0,0);
+        myColor[i].set(1.0,1.0,1.0,0.5);
+    }
+    
+    //頂点バッファに位置と色情報を設定
+    myVbo.setVertexData(myVerts, NUM, GL_DYNAMIC_DRAW);
+    myVbo.setColorData(myColor, NUM, GL_DYNAMIC_DRAW);
 }
 
 //--------------------------------------------------------------
@@ -72,7 +74,7 @@ void ofApp::update(){
         // msg += "getArgAsString " + ofToString(index) + ": " + value + "\n";
         
         if( index == 0 ){
-            getFFT = ofMap( ofToFloat( m.getArgAsString(index) ), -90, 0, 0, 2 );
+            getFFT = ofMap( ofToFloat( m.getArgAsString(index) ), -90, 0, 0, 1 );
         }
         index++;
     }
@@ -88,21 +90,26 @@ void ofApp::update(){
     drawNoiseLine();
     rollCam.end();
     myFbo.end();
+    
+    //int theta = ofGetElapsedTimeMillis();
+    rollCam.setPos(0, ofGetElapsedTimeMillis()/30, 0);
+    //rollCam.setScale(0.7);
 
-    if(getFFT > 1.5){
-        int num = ofRandom(3);
-        if(num == 0){
-            rollCam.setRandomScale(1.0, 5.5);
-            rollCam.setRandomPos(270);
-        }else if(num == 1){
-            rollCam.setRandomPos(270);
-        }else if(num == 2){
-            rollCam.setPos(-20, -10, -180);
-            rollCam.setScale(2);
-        }else{
-            rollCam.setRandomScale(1.0, 2.5);
-        }
-    }
+//    if(getFFT > 1.5){
+//        int num = ofRandom(3);
+//        if(num == 0){
+//            rollCam.setRandomScale(0.5, 1.5);
+//            rollCam.setRandomPos(270);
+//        }else if(num == 1){
+//            rollCam.setRandomPos(270);
+//        }else if(num == 2){
+//            rollCam.setRandomScale(0.5, 1.0);
+//            rollCam.setRandomPos(270);
+//        }else{
+//            rollCam.setRandomScale(1.0, 2.5);
+//            rollCam.setRandomPos(270);
+//        }
+//    }
 }
 
 //--------------------------------------------------------------
@@ -112,13 +119,7 @@ void ofApp::update(){
 		+ ofToString(emotions.__emo, 4), 4, (1 + y) * 18)
 
 void ofApp::draw(){
-    ofDrawBitmapString(ofToString("VOKATURI STATUS: ")
-        + (valid ? "VALID" : "NOT VALID"), 4, 18);
-    DRAW_EMO(neutrality, 1);
-    DRAW_EMO(happiness, 2);
-    DRAW_EMO(sadness, 3);
-    DRAW_EMO(anger, 4);
-    DRAW_EMO(fear, 5);
+
     
     /* Apply effects */
     myGlitch.generateFx();
@@ -127,9 +128,22 @@ void ofApp::draw(){
     /* draw effected view */
     ofSetColor(255);
     ofFill();
+    exp.begin();
+    ofClear(0);
+ 
     myFbo.draw(0, 0);
+    exp.end();
+
+    exp.draw(0, 0);
     
     mSyphonServer.publishScreen();
+    ofDrawBitmapString(ofToString("VOKATURI STATUS: ")
+                       + (valid ? "VALID" : "NOT VALID"), 4, 18);
+    DRAW_EMO(neutrality, 1);
+    DRAW_EMO(happiness, 2);
+    DRAW_EMO(sadness, 3);
+    DRAW_EMO(anger, 4);
+    DRAW_EMO(fear, 5);
 }
 
 //--------------------------------------------------------------
@@ -141,41 +155,71 @@ void ofApp::audioIn(ofSoundBuffer & input)
 void ofApp::drawNoiseLine(){
     vbomesh.clear();
     glLineWidth(1);
+    
+    float a = max( {emotions.neutrality, emotions.happiness, emotions.sadness,emotions.anger,emotions.fear} );
+    
     for(int i=0;i<NUM;i++){
         float coef = 2;
         ofVec3f _vec;
         
-        if(i <NUM/5){
+        if(i <NUM/6){
             coef *= emotions.neutrality;
-            vbomesh.addColor(ofFloatColor(0.4, 0.6, 1.0));
+            vbomesh.addColor(ofFloatColor(0.6, 0.6, 1.0,0.5));
         }
-        if(NUM/5 <= i && i <2*NUM/5){
+        if(NUM/6 <= i && i <2*NUM/6){
             coef *= emotions.happiness;
-            vbomesh.addColor(ofFloatColor(0.5, 0.6, 1.0));
+            vbomesh.addColor(ofFloatColor(0.5, 0.6, 1.0,0.5));
         }
-        if(2*NUM/5 <= i && i <3*NUM/5){
+        if(2*NUM/6 <= i && i <3*NUM/6){
             coef *= emotions.sadness;
-            vbomesh.addColor(ofFloatColor(0.6, 0.6, 1.0));
+            vbomesh.addColor(ofFloatColor(0.4, 0.6, 1.0,0.5));
         }
-        if(3*NUM/5 <= i && i <4*NUM/5){
+        if(3*NUM/6 <= i && i <4*NUM/6){
             coef *= emotions.anger;
-            vbomesh.addColor(ofFloatColor(0.7, 0.6, 1.0));
+            vbomesh.addColor(ofFloatColor(0.7, 0.6, 1.0,0.5));
         }
-        if(4*NUM/5 <= i && i < NUM) {
+        if(4*NUM/6 <= i && i < 5*NUM/6) {
             coef *= emotions.fear;
-            vbomesh.addColor(ofFloatColor(0.7, 0.7, 1.0));
-        
+            vbomesh.addColor(ofFloatColor(0.7, 0.7, 1.0,0.5));
+        }
+        if(5*NUM/6 <= i && i < NUM) {
+            //音
+            int k = ofRandom(2);
+            if(k == 0 )  coef *= getFFT*0.55;
+            if(k == 1 )  coef *= getFFT*0.6;
+            if(k == 2 )  coef *= getFFT*0.5;
+            vbomesh.addColor(ofFloatColor(0.9, 0.7, 0.9,0.5));
         }
         
         _vec = vec[i]*coef;
         
-        
-    //ofDrawBitmapString(ofToString(_vec),_vec);
-        
+        //頂点用
+        myVerts[i] = _vec;
+//
+//        if(2*a == coef){
+//            //ofDrawBitmapString(ofToString(_vec),_vec);
+//            vbomesh.addVertex(_vec);
+//            ofDrawCircle(_vec, 3);
+//        }else {
+//            float a = ofRandom(5);
+//            vbomesh.addVertex(_vec*getFFT*a);
+//            ofDrawCircle(_vec*getFFT*a, 3);
+//        }
+
         vbomesh.addVertex(_vec);
+        ofSetColor(255, 255, 255,100);
+        //ofDrawCircle(_vec, 2);
+        
+//        float a = ofRandom(5);
+//        ofSetColor(255, 255, 255,80);
+//        ofDrawCircle(_vec*getFFT*10, 3);
 
     }
     //ofSetColor(150,150, 255);
+    //頂点バッファ更新
+    myVbo.updateVertexData(myVerts, NUM);
+    glPointSize(4);
+    myVbo.draw(GL_POINTS,0,NUM);
     vbomesh.draw();
     
 }
@@ -185,18 +229,23 @@ void ofApp::keyPressed(int key){
     if (key=='0') {
         myFbo.allocate(ofGetWidth(), ofGetHeight());
         myGlitch.setup(&myFbo);
+        exp.setup(ofGetWidth(), ofGetHeight(), 30);
+        exp.setOutputDir("out");
+        exp.setOverwriteSequence(true);
+        exp.setAutoExit(true);
+        exp.startExport();
     }
     
     if (key=='z') {//All Random.
         rollCam.setRandomScale(0.5, 1.0);
-        rollCam.setRandomPos(180);
+        rollCam.setRandomPos(1);
         
     }
     if (key=='x') {//Random rotate.
-        rollCam.setRandomPos(180);
+        rollCam.setScale(0.8);
     }
     if (key=='v') {//Random distance.
-        rollCam.setRandomScale(0.5, 1.5);
+        rollCam.setScale(2);
     }
     
     

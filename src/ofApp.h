@@ -6,11 +6,12 @@
 #include "ofxRollingCam.h"
 #include "ofxOsc.h"
 #include "ofxSyphon.h"
+#include "ofxExportImageSequence.h"
 
 
 #define HOST "127.0.0.1"
 #define PORT 7401
-#define NUM 1000 //Noiseの頂点数
+#define NUM 1400 //Noiseの頂点数
 class ofApp : public ofBaseApp{
 	private:
 		ofSoundStream soundStream;
@@ -40,13 +41,13 @@ class ofApp : public ofBaseApp{
     
     ofVboMesh vbomesh;
     ofVec3f vec[NUM];
-    ofVec3f p_vec[NUM];
+    ofxExportImageSequence exp;
     
-    int frame[NUM];
-    int loop[NUM];
-    int count[NUM];
-    ofVec3f delta[NUM];
-    ofVec3f v[NUM];
-    
+    //VBO
+    ofVbo myVbo;
+    //頂点座標
+    ofVec3f myVerts[NUM];
+    //頂点の色情報
+    ofFloatColor myColor[NUM];
     
 };

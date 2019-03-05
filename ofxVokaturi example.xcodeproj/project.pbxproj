@@ -1521,6 +1521,173 @@
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
+			<key>C0BD6E8A4662F8AD99DCCFD8</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>tiffvers.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxExportImageSequence/libs/libtiff/include/tiffvers.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>F495DA7C940F44ED70A75F90</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>tiffio.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxExportImageSequence/libs/libtiff/include/tiffio.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>FE30765CEA4C74C6FB2B34CF</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>tiffconf.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxExportImageSequence/libs/libtiff/include/tiffconf.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>EF3A6CDD8D5C57A311488FDB</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>F937B08E2FDA5F48FDFC6E93</string>
+					<string>FE30765CEA4C74C6FB2B34CF</string>
+					<string>F495DA7C940F44ED70A75F90</string>
+					<string>C0BD6E8A4662F8AD99DCCFD8</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>include</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>49A11EF5C045749646612B8A</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>EF3A6CDD8D5C57A311488FDB</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>libtiff</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>721062948A17F20907BDF409</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>49A11EF5C045749646612B8A</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>libs</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>F937B08E2FDA5F48FDFC6E93</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>tiff.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxExportImageSequence/libs/libtiff/include/tiff.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>B9CD2548D97BB4793FD87D3E</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxExportImageSequence.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxExportImageSequence/src/ofxExportImageSequence.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>DA9D107FE1626582171AC5A3</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>15B031300AA25D40E645FD49</string>
+					<string>B9CD2548D97BB4793FD87D3E</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>src</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>B581B1A6953DDB9EE29AD77D</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>DA9D107FE1626582171AC5A3</string>
+					<string>721062948A17F20907BDF409</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>ofxExportImageSequence</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>A71FA1AD0106AB313E49EABB</key>
+			<dict>
+				<key>fileRef</key>
+				<string>15B031300AA25D40E645FD49</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>15B031300AA25D40E645FD49</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxExportImageSequence.cpp</string>
+				<key>path</key>
+				<string>../../../addons/ofxExportImageSequence/src/ofxExportImageSequence.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>6948EE371B920CB800B5AC1A</key>
 			<dict>
 				<key>children</key>
@@ -1536,6 +1703,7 @@
 			<dict>
 				<key>children</key>
 				<array>
+					<string>B581B1A6953DDB9EE29AD77D</string>
 					<string>E6053AB7FEC63D5F83825B88</string>
 					<string>D92A719EC4DFB00CB4A3047D</string>
 					<string>D66DCBBD7AE5E0DE2981DF24</string>
@@ -1691,10 +1859,21 @@
 				<string>E4EB6923138AFD0F00A09F29</string>
 				<key>buildSettings</key>
 				<dict>
+					<key>OTHER_LDFLAGS</key>
+					<array>
+						<string>$(OF_CORE_FRAMEWORKS) $(OF_CORE_LIBS)</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/lib/osx/libtiff.a</string>
+					</array>
 					<key>HEADER_SEARCH_PATHS</key>
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
+						<string>../../../addons/ofxExportImageSequence/libs</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/include</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/lib</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/lib/osx</string>
+						<string>../../../addons/ofxExportImageSequence/src</string>
 						<string>../../../addons/ofxOsc/libs</string>
 						<string>../../../addons/ofxOsc/libs/oscpack</string>
 						<string>../../../addons/ofxOsc/libs/oscpack/src</string>
@@ -1770,10 +1949,21 @@
 				<string>E4EB6923138AFD0F00A09F29</string>
 				<key>buildSettings</key>
 				<dict>
+					<key>OTHER_LDFLAGS</key>
+					<array>
+						<string>$(OF_CORE_FRAMEWORKS) $(OF_CORE_LIBS)</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/lib/osx/libtiff.a</string>
+					</array>
 					<key>HEADER_SEARCH_PATHS</key>
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
+						<string>../../../addons/ofxExportImageSequence/libs</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/include</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/lib</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/lib/osx</string>
+						<string>../../../addons/ofxExportImageSequence/src</string>
 						<string>../../../addons/ofxOsc/libs</string>
 						<string>../../../addons/ofxOsc/libs/oscpack</string>
 						<string>../../../addons/ofxOsc/libs/oscpack/src</string>
@@ -1851,6 +2041,7 @@
 				<array>
 					<string>E4B69E200A3A1BDC003C02F2</string>
 					<string>E4B69E210A3A1BDC003C02F2</string>
+					<string>A71FA1AD0106AB313E49EABB</string>
 					<string>72A929D3561B8232A182ABFC</string>
 					<string>5864AD82E20F15536D054EA3</string>
 					<string>4ADB88E2FB52E76A471065DE</string>
@@ -1952,10 +2143,21 @@
 				<string>E4EB6923138AFD0F00A09F29</string>
 				<key>buildSettings</key>
 				<dict>
+					<key>OTHER_LDFLAGS</key>
+					<array>
+						<string>$(OF_CORE_FRAMEWORKS) $(OF_CORE_LIBS)</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/lib/osx/libtiff.a</string>
+					</array>
 					<key>HEADER_SEARCH_PATHS</key>
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
+						<string>../../../addons/ofxExportImageSequence/libs</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/include</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/lib</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/lib/osx</string>
+						<string>../../../addons/ofxExportImageSequence/src</string>
 						<string>../../../addons/ofxOsc/libs</string>
 						<string>../../../addons/ofxOsc/libs/oscpack</string>
 						<string>../../../addons/ofxOsc/libs/oscpack/src</string>
@@ -2022,10 +2224,21 @@
 				<string>E4EB6923138AFD0F00A09F29</string>
 				<key>buildSettings</key>
 				<dict>
+					<key>OTHER_LDFLAGS</key>
+					<array>
+						<string>$(OF_CORE_FRAMEWORKS) $(OF_CORE_LIBS)</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/lib/osx/libtiff.a</string>
+					</array>
 					<key>HEADER_SEARCH_PATHS</key>
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
+						<string>../../../addons/ofxExportImageSequence/libs</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/include</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/lib</string>
+						<string>../../../addons/ofxExportImageSequence/libs/libtiff/lib/osx</string>
+						<string>../../../addons/ofxExportImageSequence/src</string>
 						<string>../../../addons/ofxOsc/libs</string>
 						<string>../../../addons/ofxOsc/libs/oscpack</string>
 						<string>../../../addons/ofxOsc/libs/oscpack/src</string>

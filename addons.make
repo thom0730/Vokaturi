@@ -1,3 +1,4 @@
+ofxExportImageSequence
 ofxOsc
 ofxPostGlitch
 ofxRollingCam
