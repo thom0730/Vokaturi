@@ -89,7 +89,7 @@ void ofApp::update(){
     rollCam.end();
     myFbo.end();
 
-    if(getFFT > 1.6){
+    if(getFFT > 1.5){
         int num = ofRandom(3);
         if(num == 0){
             rollCam.setRandomScale(1.0, 5.5);
@@ -98,7 +98,7 @@ void ofApp::update(){
             rollCam.setRandomPos(270);
         }else if(num == 2){
             rollCam.setPos(-20, -10, -180);
-            rollCam.setScale(0.3);
+            rollCam.setScale(2);
         }else{
             rollCam.setRandomScale(1.0, 2.5);
         }
@@ -112,16 +112,17 @@ void ofApp::update(){
 		+ ofToString(emotions.__emo, 4), 4, (1 + y) * 18)
 
 void ofApp::draw(){
-	ofDrawBitmapString(ofToString("VOKATURI STATUS: ")
-		+ (valid ? "VALID" : "NOT VALID"), 4, 18);
-	DRAW_EMO(neutrality, 1);
-	DRAW_EMO(happiness, 2);
-	DRAW_EMO(sadness, 3);
-	DRAW_EMO(anger, 4);
-	DRAW_EMO(fear, 5);
+    ofDrawBitmapString(ofToString("VOKATURI STATUS: ")
+        + (valid ? "VALID" : "NOT VALID"), 4, 18);
+    DRAW_EMO(neutrality, 1);
+    DRAW_EMO(happiness, 2);
+    DRAW_EMO(sadness, 3);
+    DRAW_EMO(anger, 4);
+    DRAW_EMO(fear, 5);
     
     /* Apply effects */
     myGlitch.generateFx();
+    myGlitch.setFx(OFXPOSTGLITCH_GLOW            , true);
     
     /* draw effected view */
     ofSetColor(255);

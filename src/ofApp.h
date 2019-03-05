@@ -10,7 +10,7 @@
 
 #define HOST "127.0.0.1"
 #define PORT 7401
-#define NUM 800 //Noiseの頂点数
+#define NUM 1000 //Noiseの頂点数
 class ofApp : public ofBaseApp{
 	private:
 		ofSoundStream soundStream;
