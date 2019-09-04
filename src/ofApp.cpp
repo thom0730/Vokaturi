@@ -35,6 +35,7 @@ void ofApp::setup(){
     
     //SETUP MESH
     rollCam.setCamSpeed(0.06);//rollCam's speed set;
+    //rollCam.setCamSpeed(0.02);//rollCam's speed set;
     for(int i=0;i<NUM;i++){
         int x = ofRandom(-ofGetHeight()/5,ofGetHeight()/5);
         int y = ofRandom(-ofGetHeight()/5,ofGetHeight()/5);
@@ -87,6 +88,7 @@ void ofApp::update(){
     myFbo.begin();
     ofClear(0);
     rollCam.begin();
+    glEnable(GL_LINE_SMOOTH);
     drawNoiseLine();
     rollCam.end();
     myFbo.end();
@@ -95,18 +97,21 @@ void ofApp::update(){
     rollCam.setPos(0, ofGetElapsedTimeMillis()/30, 0);
     //rollCam.setScale(0.7);
 
-//    if(getFFT > 1.5){
+    
+    //FFTでローリングするところ
+//
+//    if(getFFT > 0.68){
 //        int num = ofRandom(3);
 //        if(num == 0){
-//            rollCam.setRandomScale(0.5, 1.5);
+//            //rollCam.setRandomScale(0.5, 1.5);
 //            rollCam.setRandomPos(270);
 //        }else if(num == 1){
 //            rollCam.setRandomPos(270);
 //        }else if(num == 2){
-//            rollCam.setRandomScale(0.5, 1.0);
+//            //rollCam.setRandomScale(0.5, 1.0);
 //            rollCam.setRandomPos(270);
 //        }else{
-//            rollCam.setRandomScale(1.0, 2.5);
+//           // rollCam.setRandomScale(1.0, 2.5);
 //            rollCam.setRandomPos(270);
 //        }
 //    }
@@ -154,7 +159,7 @@ void ofApp::audioIn(ofSoundBuffer & input)
 //--------------------------------------------------------------
 void ofApp::drawNoiseLine(){
     vbomesh.clear();
-    glLineWidth(1);
+    glLineWidth(2);
     
     float a = max( {emotions.neutrality, emotions.happiness, emotions.sadness,emotions.anger,emotions.fear} );
     
@@ -191,34 +196,27 @@ void ofApp::drawNoiseLine(){
             vbomesh.addColor(ofFloatColor(0.9, 0.7, 0.9,0.5));
         }
         
+//        if(i < 5*NUM/6){
+//            //音
+//            int k = ofRandom(2);
+//            if(k == 0 )  coef *= getFFT*1;
+//            if(k == 1 )  coef *= getFFT*1.2;
+//            if(k == 2 )  coef *= getFFT*0.8;
+//        }
+        
         _vec = vec[i]*coef;
         
         //頂点用
         myVerts[i] = _vec;
-//
-//        if(2*a == coef){
-//            //ofDrawBitmapString(ofToString(_vec),_vec);
-//            vbomesh.addVertex(_vec);
-//            ofDrawCircle(_vec, 3);
-//        }else {
-//            float a = ofRandom(5);
-//            vbomesh.addVertex(_vec*getFFT*a);
-//            ofDrawCircle(_vec*getFFT*a, 3);
-//        }
 
         vbomesh.addVertex(_vec);
         ofSetColor(255, 255, 255,100);
-        //ofDrawCircle(_vec, 2);
-        
-//        float a = ofRandom(5);
-//        ofSetColor(255, 255, 255,80);
-//        ofDrawCircle(_vec*getFFT*10, 3);
 
     }
     //ofSetColor(150,150, 255);
     //頂点バッファ更新
     myVbo.updateVertexData(myVerts, NUM);
-    glPointSize(4);
+    glPointSize(3);
     myVbo.draw(GL_POINTS,0,NUM);
     vbomesh.draw();
     
@@ -237,8 +235,7 @@ void ofApp::keyPressed(int key){
     }
     
     if (key=='z') {//All Random.
-        rollCam.setRandomScale(0.5, 1.0);
-        rollCam.setRandomPos(1);
+        rollCam.setRandomPos(270);
         
     }
     if (key=='x') {//Random rotate.
